@@ -196,7 +196,9 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
           return Container(
             margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+                border: Border.all(color: Colors.blue, width: 2),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10)),
             child: Center(
               child: Text(date.day.toString().toFarsiNumber(),
                   style: Theme.of(context)
