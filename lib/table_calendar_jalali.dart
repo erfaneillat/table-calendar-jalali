@@ -182,7 +182,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
               date: date,
               boxColor: Colors.blue,
               textColor: Colors.white,
-              onTap: widget.onDaySelected(date));
+              onTap: widget.onDaySelected);
         }
         if (isSelected) {
           if (widget.selectedDayBuilder != null) {
@@ -190,7 +190,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
           }
           return _DayBox(
             date: date,
-            onTap: widget.onDaySelected(date),
+            onTap: widget.onDaySelected,
             boxColor: Colors.white,
             border: Border.all(color: Colors.blue, width: 2),
             textColor: Colors.black,
@@ -203,7 +203,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
 
         return _DayBox(
           date: date,
-          onTap: widget.onDaySelected(date),
+          onTap: widget.onDaySelected,
           boxColor: Colors.white,
           textColor: Colors.black,
         );
@@ -244,11 +244,13 @@ class _DayBox extends StatelessWidget {
   final BoxBorder? border;
   final Color? boxColor;
   final Color? textColor;
-  final Function() onTap;
+  final Function(Jalali date) onTap;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        onTap(date);
+      },
       child: AnimatedContainer(
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
