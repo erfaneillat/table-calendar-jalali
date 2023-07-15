@@ -8,12 +8,18 @@ class JalaliTableCalendar extends StatefulWidget {
       this.currentMonth,
       this.headerStyle,
       this.weekDaysStyle,
+      this.selectedDay,
+      this.selectedDayBuilder,
+      this.currentDayBuilder,
       this.dayBuilder});
 
   final Jalali? currentMonth;
   final TextStyle? headerStyle;
   final TextStyle? weekDaysStyle;
+  final Jalali? selectedDay;
   final Widget Function(BuildContext, Jalali)? dayBuilder;
+  final Widget Function(BuildContext, Jalali)? selectedDayBuilder;
+  final Widget Function(BuildContext, Jalali)? currentDayBuilder;
   @override
   State<JalaliTableCalendar> createState() => _JalaliTableCalendarState();
 }
@@ -154,12 +160,53 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
         int daysBeforeFirst = firstDayOfMonth.weekDay - 1;
 
         bool itsLastMonthDay = index < daysBeforeFirst;
+        bool isSelected = widget.selectedDay != null
+            ? widget.selectedDay!.day == date.day &&
+                widget.selectedDay!.year == date.year &&
+                widget.selectedDay!.month == date.month
+            : false;
         if (itsLastMonthDay) {
           return const SizedBox();
         }
+        if (date == Jalali.now()) {
+          if (widget.currentDayBuilder != null) {
+            return widget.currentDayBuilder!(context, date);
+          }
+          return Container(
+            margin: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              child: Text(date.day.toString().toFarsiNumber(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(fontSize: 16, color: Colors.white)),
+            ),
+          );
+        }
+        if (isSelected) {
+          if (widget.selectedDayBuilder != null) {
+            return widget.selectedDayBuilder!(context, date);
+          }
+          return Container(
+            margin: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              child: Text(date.day.toString().toFarsiNumber(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(fontSize: 16, color: Colors.white)),
+            ),
+          );
+        }
+
         if (widget.dayBuilder != null) {
           return widget.dayBuilder!(context, date);
         }
+
         return Container(
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
