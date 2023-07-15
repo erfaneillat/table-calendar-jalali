@@ -204,7 +204,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium!
-                      .copyWith(fontSize: 16, color: Colors.white)),
+                      .copyWith(fontSize: 16, color: Colors.black)),
             ),
           );
         }
