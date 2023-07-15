@@ -250,8 +250,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
 
 class _DayBox extends StatelessWidget {
   const _DayBox(
-      {super.key,
-      required this.date,
+      {required this.date,
       this.border,
       this.boxColor,
       required this.onTap,
