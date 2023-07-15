@@ -247,23 +247,27 @@ class _DayBox extends StatelessWidget {
   final Function(Jalali date) onTap;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        onTap(date);
-      },
-      child: AnimatedContainer(
-        margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-            border: border,
-            color: boxColor ?? Colors.blue,
-            borderRadius: BorderRadius.circular(10)),
-        duration: const Duration(milliseconds: 300),
-        child: Center(
-          child: Text(date.day.toString().toFarsiNumber(),
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .copyWith(fontSize: 16, color: textColor ?? Colors.white)),
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () {
+            onTap(date);
+          },
+          child: AnimatedContainer(
+            decoration: BoxDecoration(
+                border: border,
+                color: boxColor ?? Colors.blue,
+                borderRadius: BorderRadius.circular(10)),
+            duration: const Duration(milliseconds: 300),
+            child: Center(
+              child: Text(date.day.toString().toFarsiNumber(),
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      fontSize: 16, color: textColor ?? Colors.white)),
+            ),
+          ),
         ),
       ),
     );
