@@ -20,7 +20,7 @@ Implement the JalaliTableCalendar widget in your Flutter widget tree:
             currentMonth: Jalali.now(),
             headerStyle: TextStyle(color: Colors.blue),
             weekDaysStyle: TextStyle(fontSize: 12),
-            selectedDay: Jalali.now().addDays(2),
+            selectedDay: selectedDate,
             dayBuilder: (context, date) {
               // Custom day builder implementation
               return Container(
@@ -39,6 +39,9 @@ Implement the JalaliTableCalendar widget in your Flutter widget tree:
             onDaySelected: (date) {
               // Handle day selection
               print('Selected date: $date');
+              setState(() {
+                selectedDate = date;
+              });
             },
             headerText: (date) {
               // Custom header text implementation
