@@ -1,15 +1,3 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
 
 The table_calendar_jalali package is a Flutter package that provides a custom table calendar widget with support for the Jalali (Persian) calendar system. It allows users to navigate through different months, select specific days, and customize the appearance of the calendar.
 

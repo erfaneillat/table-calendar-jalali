@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'package:table_calendar_jalali/extensions/string.dart';
+import 'package:table_calendar_jalali/src/extensions/string.dart';
 
 class JalaliTableCalendar extends StatefulWidget {
   const JalaliTableCalendar(
