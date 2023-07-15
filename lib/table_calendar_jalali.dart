@@ -63,12 +63,15 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildHeader(),
-        _buildDaysName(),
-        _buildCalendar(),
-      ],
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Column(
+        children: [
+          _buildHeader(),
+          _buildDaysName(),
+          _buildCalendar(),
+        ],
+      ),
     );
   }
 
