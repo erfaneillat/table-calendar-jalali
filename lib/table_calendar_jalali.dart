@@ -11,6 +11,7 @@ class JalaliTableCalendar extends StatefulWidget {
       this.selectedDay,
       this.selectedDayBuilder,
       this.currentDayBuilder,
+      required this.onDaySelected,
       this.dayBuilder});
 
   final Jalali? currentMonth;
@@ -20,6 +21,7 @@ class JalaliTableCalendar extends StatefulWidget {
   final Widget Function(BuildContext, Jalali)? dayBuilder;
   final Widget Function(BuildContext, Jalali)? selectedDayBuilder;
   final Widget Function(BuildContext, Jalali)? currentDayBuilder;
+  final Function() onDaySelected;
   @override
   State<JalaliTableCalendar> createState() => _JalaliTableCalendarState();
 }
@@ -176,36 +178,22 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
           if (widget.currentDayBuilder != null) {
             return widget.currentDayBuilder!(context, date);
           }
-          return Container(
-            margin: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-            child: Center(
-              child: Text(date.day.toString().toFarsiNumber(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(fontSize: 16, color: Colors.white)),
-            ),
-          );
+          return _DayBox(
+              date: date,
+              boxColor: Colors.blue,
+              textColor: Colors.white,
+              onTap: widget.onDaySelected);
         }
         if (isSelected) {
           if (widget.selectedDayBuilder != null) {
             return widget.selectedDayBuilder!(context, date);
           }
-          return Container(
-            margin: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue, width: 2),
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10)),
-            child: Center(
-              child: Text(date.day.toString().toFarsiNumber(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(fontSize: 16, color: Colors.black)),
-            ),
+          return _DayBox(
+            date: date,
+            onTap: widget.onDaySelected,
+            boxColor: Colors.white,
+            border: Border.all(color: Colors.blue, width: 2),
+            textColor: Colors.black,
           );
         }
 
@@ -213,17 +201,11 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
           return widget.dayBuilder!(context, date);
         }
 
-        return Container(
-          margin: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
-          child: Center(
-            child: Text(date.day.toString().toFarsiNumber(),
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium!
-                    .copyWith(fontSize: 16, color: Colors.black)),
-          ),
+        return _DayBox(
+          date: date,
+          onTap: widget.onDaySelected,
+          boxColor: Colors.white,
+          textColor: Colors.black,
         );
       },
     );
@@ -246,5 +228,42 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
 
   String _getFormattedMonthYear(Jalali month) {
     return '${month.formatter.mN} ${month.year}';
+  }
+}
+
+class _DayBox extends StatelessWidget {
+  const _DayBox(
+      {super.key,
+      required this.date,
+      this.border,
+      this.boxColor,
+      required this.onTap,
+      this.textColor});
+
+  final Jalali date;
+  final BoxBorder? border;
+  final Color? boxColor;
+  final Color? textColor;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: AnimatedContainer(
+        margin: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            border: border,
+            color: boxColor ?? Colors.blue,
+            borderRadius: BorderRadius.circular(10)),
+        duration: const Duration(milliseconds: 300),
+        child: Center(
+          child: Text(date.day.toString().toFarsiNumber(),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(fontSize: 16, color: textColor ?? Colors.white)),
+        ),
+      ),
+    );
   }
 }
