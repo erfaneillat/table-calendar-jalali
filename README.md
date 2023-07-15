@@ -1,6 +1,5 @@
 
-![Screenshot_1689441023](https://github.com/erfaneillat/table-calendar-jalali/assets/69785709/cd540058-f6a4-44bc-8b4d-e78218d686cb)
-<img src="https://github.com/erfaneillat/table-calendar-jalali/assets/69785709/cd540058-f6a4-44bc-8b4d-e78218d686cb" width="200" height="400">
+<img src="https://github.com/erfaneillat/table-calendar-jalali/assets/69785709/cd540058-f6a4-44bc-8b4d-e78218d686cb" width="300" height="500">
 
 table_calendar_jalali package is a Flutter package that provides a custom table calendar widget with support for the Jalali (Persian) calendar system. It allows users to navigate through different months, select specific days, and customize the appearance of the calendar.
 
