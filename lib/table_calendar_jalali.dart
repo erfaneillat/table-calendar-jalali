@@ -44,6 +44,12 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
     'پنجشنبه',
     'جمعه',
   ];
+  bool isTheSame(Jalali first, Jalali second) {
+    return first.day == second.day &&
+        first.month == second.month &&
+        first.year == second.year;
+  }
+
   int getDaysInMonth(int year, int month) {
     if (month == 12) {
       final bool isLeapYear = Jalali(year).isLeapYear();
@@ -161,14 +167,12 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
 
         bool itsLastMonthDay = index < daysBeforeFirst;
         bool isSelected = widget.selectedDay != null
-            ? widget.selectedDay!.day == date.day &&
-                widget.selectedDay!.year == date.year &&
-                widget.selectedDay!.month == date.month
+            ? isTheSame(widget.selectedDay!, date)
             : false;
         if (itsLastMonthDay) {
           return const SizedBox();
         }
-        if (date == Jalali.now()) {
+        if (isTheSame(Jalali.now(), date)) {
           if (widget.currentDayBuilder != null) {
             return widget.currentDayBuilder!(context, date);
           }
