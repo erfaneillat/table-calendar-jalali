@@ -11,7 +11,10 @@ class JalaliTableCalendar extends StatefulWidget {
       this.selectedDay,
       this.selectedDayBuilder,
       this.currentDayBuilder,
+      this.nextMonthIcon,
+      this.previousMonthIcon,
       required this.onDaySelected,
+      this.headerText,
       this.dayBuilder});
 
   final Jalali? currentMonth;
@@ -22,6 +25,9 @@ class JalaliTableCalendar extends StatefulWidget {
   final Widget Function(BuildContext, Jalali)? selectedDayBuilder;
   final Widget Function(BuildContext, Jalali)? currentDayBuilder;
   final Function(Jalali date) onDaySelected;
+  final String Function(Jalali date)? headerText;
+  final Widget? previousMonthIcon;
+  final Widget? nextMonthIcon;
   @override
   State<JalaliTableCalendar> createState() => _JalaliTableCalendarState();
 }
@@ -95,7 +101,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
       children: [
         IconButton(
           splashRadius: 20,
-          icon: const Icon(Icons.chevron_left),
+          icon: widget.nextMonthIcon ?? const Icon(Icons.chevron_left),
           onPressed: () {
             setState(() {
               if (_currentMonth.month == 1) {
@@ -110,12 +116,15 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
             });
           },
         ),
-        Text(_getFormattedMonthYear(_currentMonth),
+        Text(
+            widget.headerText != null
+                ? widget.headerText!(_currentMonth)
+                : _getFormattedMonthYear(_currentMonth),
             style:
                 widget.headerStyle ?? Theme.of(context).textTheme.labelMedium),
         IconButton(
           splashRadius: 20,
-          icon: const Icon(Icons.chevron_right),
+          icon: widget.previousMonthIcon ?? const Icon(Icons.chevron_right),
           onPressed: () {
             setState(() {
               if (_currentMonth.month == 12) {
