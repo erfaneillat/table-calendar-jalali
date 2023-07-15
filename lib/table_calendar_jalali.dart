@@ -14,6 +14,7 @@ class JalaliTableCalendar extends StatefulWidget {
       this.nextMonthIcon,
       this.previousMonthIcon,
       required this.onDaySelected,
+      this.onMonthChanged,
       this.headerText,
       this.dayBuilder});
 
@@ -26,6 +27,7 @@ class JalaliTableCalendar extends StatefulWidget {
   final Widget Function(BuildContext, Jalali)? currentDayBuilder;
   final Function(Jalali date) onDaySelected;
   final String Function(Jalali date)? headerText;
+  final Function(Jalali date)? onMonthChanged;
   final Widget? previousMonthIcon;
   final Widget? nextMonthIcon;
   @override
@@ -112,6 +114,9 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
                 _currentMonth =
                     _currentMonth.copy(month: _currentMonth.month - 1);
               }
+              if (widget.onMonthChanged != null) {
+                widget.onMonthChanged!(_currentMonth);
+              }
               _visibleDates = _getVisibleDates(_currentMonth);
             });
           },
@@ -134,6 +139,9 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
               } else {
                 _currentMonth =
                     _currentMonth.copy(month: _currentMonth.month + 1);
+              }
+              if (widget.onMonthChanged != null) {
+                widget.onMonthChanged!(_currentMonth);
               }
               _visibleDates = _getVisibleDates(_currentMonth);
             });
