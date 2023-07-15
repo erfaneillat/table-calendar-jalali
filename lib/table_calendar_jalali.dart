@@ -21,7 +21,7 @@ class JalaliTableCalendar extends StatefulWidget {
   final Widget Function(BuildContext, Jalali)? dayBuilder;
   final Widget Function(BuildContext, Jalali)? selectedDayBuilder;
   final Widget Function(BuildContext, Jalali)? currentDayBuilder;
-  final Function() onDaySelected;
+  final Function(Jalali date) onDaySelected;
   @override
   State<JalaliTableCalendar> createState() => _JalaliTableCalendarState();
 }
@@ -182,7 +182,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
               date: date,
               boxColor: Colors.blue,
               textColor: Colors.white,
-              onTap: widget.onDaySelected);
+              onTap: widget.onDaySelected(date));
         }
         if (isSelected) {
           if (widget.selectedDayBuilder != null) {
@@ -190,7 +190,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
           }
           return _DayBox(
             date: date,
-            onTap: widget.onDaySelected,
+            onTap: widget.onDaySelected(date),
             boxColor: Colors.white,
             border: Border.all(color: Colors.blue, width: 2),
             textColor: Colors.black,
@@ -203,7 +203,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
 
         return _DayBox(
           date: date,
-          onTap: widget.onDaySelected,
+          onTap: widget.onDaySelected(date),
           boxColor: Colors.white,
           textColor: Colors.black,
         );
